@@ -3,6 +3,7 @@ require('dotenv').config({ path: './.env' });
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
+
 const app = express();
 mongoose.set('strictQuery', false);
 const auth = require('./middlewares/auth');
@@ -22,7 +23,6 @@ app.options('*', cors());
 app.use(express.json());
 app.use(requestLogger);
 
-
 app.post('/signin', login);
 app.post('/signup', createUser);
 
@@ -30,9 +30,9 @@ app.use('/users', auth, userRoutes);
 app.use('/articles', auth, articleRoutes);
 
 app.use((req, res, next) => {
-    next(new NotFoundError('The requested resource was not found'));
+  next(new NotFoundError('The requested resource was not found'));
 });
 app.use(errorLogger);
 app.listen(PORT, () => {
-    console.log('Server listening on port 3000');
+  console.log('Server listening on port 3000');
 });

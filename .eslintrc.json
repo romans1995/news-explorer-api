@@ -1,0 +1,32 @@
+{
+    "env": {
+        "node":true,
+        "browser": true,
+        "commonjs": true,
+        "es2021": true
+    },
+    "extends": [
+        "plugin:react/recommended",
+        "airbnb"
+    ],
+    "overrides": [
+    ],
+    "parserOptions": {
+        "ecmaVersion": "latest"
+    },
+    "plugins": [
+        "react"
+    ],
+    "rules": {
+        "padded-blocks": ["off"],
+    "no-underscore-dangle": ["error", { "allow": ["_id"]}],
+     "linebreak-style": ["off"],
+     "no-console": ["off"],
+     "devDependencies":["off"],
+     "packageDir":["off"],
+     "includeInternal":["off"],
+     "consistent-return":["off"],
+      "no-unused-vars": ["error", { "argsIgnorePattern": "next" }],
+      "func-names":["off"]
+    }
+}
