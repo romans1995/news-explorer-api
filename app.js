@@ -8,12 +8,14 @@ const {
   validateUserBody,
   validateAuthentication,
 } = require('./middlewares/validation');
-const limiter = require('./constants/limiter');
+const { limiter } = require('./constants/limiter');
 
 const app = express();
 mongoose.set('strictQuery', false);
 
 const auth = require('./middlewares/auth');
+const errorHandler = require('./middlewares/errorHandler');
+
 const { login, createUser } = require('./controllers/users');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const NotFoundError = require('./errors/NotFoundError');
@@ -45,4 +47,6 @@ app.use((req, res, next) => {
 });
 app.use(errorLogger);
 app.use(errors());
+
+app.use(errorHandler);
 app.listen(PORT);
