@@ -6,14 +6,10 @@ const articleSchema = new mongoose.Schema({
   keyword: {
     type: String,
     required: true,
-    minlength: 2,
-    maxlength: 30,
   },
   title: {
     type: String,
     required: true,
-    minlength: 2,
-    maxlength: 30,
   },
   text: {
     type: String,

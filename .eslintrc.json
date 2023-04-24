@@ -6,7 +6,7 @@
         "es2021": true
     },
     "extends": [
-        "plugin:react/recommended",
+        "airbnb-base",
         "airbnb"
     ],
     "overrides": [
@@ -14,19 +14,13 @@
     "parserOptions": {
         "ecmaVersion": "latest"
     },
-    "plugins": [
-        "react"
-    ],
+      "settings": {
+    "import/core-modules": ["express-rate-limit","celebrate", "helmet"]
+
+  },
     "rules": {
-        "padded-blocks": ["off"],
+    "func-names": ["off"],
     "no-underscore-dangle": ["error", { "allow": ["_id"]}],
-     "linebreak-style": ["off"],
-     "no-console": ["off"],
-     "devDependencies":["off"],
-     "packageDir":["off"],
-     "includeInternal":["off"],
-     "consistent-return":["off"],
-      "no-unused-vars": ["error", { "argsIgnorePattern": "next" }],
-      "func-names":["off"]
+      "no-unused-vars": ["error", { "argsIgnorePattern": "next" }]
     }
 }

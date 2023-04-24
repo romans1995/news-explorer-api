@@ -4,9 +4,9 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "dev": "npx nodemon app.js",
-        "start": "node ./app.js",
-        "lint": " eslint ./"
+        "dev": "nodemon app.js",
+        "start": "node app.js",
+        "lint": "eslint ."
     },
     "repository": {
         "type": "git",
@@ -20,9 +20,12 @@
     "homepage": "https://github.com/romans1995/news-explorer-api#readme",
     "dependencies": {
         "bcryptjs": "^2.4.3",
+        "celebrate": "^15.0.1",
         "cors": "^2.8.5",
         "dotenv": "^16.0.3",
         "express": "^4.18.2",
+        "express-rate-limit": "^6.7.0",
+        "helmet": "^6.1.5",
         "jsonwebtoken": "^9.0.0",
         "mongoose": "^7.0.4",
         "validator": "^13.9.0",
@@ -34,6 +37,7 @@
         "eslint-plugin-import": "^2.27.5",
         "eslint-plugin-jsx-a11y": "^6.7.1",
         "eslint-plugin-react": "^7.32.2",
-        "eslint-plugin-react-hooks": "^4.6.0"
+        "eslint-plugin-react-hooks": "^4.6.0",
+        "nodemon": "^2.0.22"
     }
 }

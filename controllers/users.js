@@ -59,6 +59,6 @@ module.exports.createUser = async (req, res, next) => {
     if (err.name === 'ValidationError') {
       next(new ERROR_CODE('invalid data passed to the methods for creating a user '));
     }
-    next(new SERVER_ERROR('An error has occurred on the server.'));
+    return next(new SERVER_ERROR('An error has occurred on the server.'));
   }
 };

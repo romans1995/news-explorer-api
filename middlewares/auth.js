@@ -2,8 +2,8 @@ const jwt = require('jsonwebtoken');
 
 const ForbiddenError = require('../errors/ForbiddenError');
 const UnauthorizedError = require('../errors/UnauthorizedError');
+const { JWT_TOKEN } = require('../constants/config');
 
-const { JWT_TOKEN = 'dev-key' } = process.env;
 module.exports = (req, res, next) => {
   // get authorization from the header by destructuring
   const { authorization } = req.headers;
@@ -19,7 +19,6 @@ module.exports = (req, res, next) => {
   let payload;
   try {
     payload = jwt.verify(token, JWT_TOKEN);
-
   } catch (err) {
     throw new UnauthorizedError('Authorization required');
   }

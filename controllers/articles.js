@@ -7,7 +7,7 @@ const {
 } = require('../constants/utils');
 
 module.exports.getArticles = (req, res, next) => {
-  Article.find({})
+  Article.find({ owner: req.user._id })
     .then((article) => res.send({ data: article }))
     .catch(next);
 };
@@ -24,17 +24,14 @@ module.exports.createArticle = async (req, res, next) => {
     });
     res.send(newArticle);
   } catch (err) {
-
-    if (err.name === 'CastError') {
-      next(new ERROR_CODE('Invalid Article id'));
+    if (err.name === 'ValidationError') {
+      next(new ForbiddenError('Invalid Article id'));
     } else if (err.statusCode === NotFoundError) {
       next(new NotFoundError(' bad request'));
     } else {
       next(err);
     }
-
   }
-
 };
 module.exports.deleteArticleById = async (req, res, next) => {
   Article.findById({ _id: req.params._id }).select('owner').orFail(() => { throw new NotFoundError('Article not found'); })
