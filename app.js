@@ -4,10 +4,7 @@ const mongoose = require('mongoose');
 const helmet = require('helmet');
 const cors = require('cors');
 const { errors } = require('celebrate');
-// const {
-//   validateUserBody,
-//   validateAuthentication,
-// } = require('./middlewares/validation');
+
 const { limiter } = require('./constants/limiter');
 
 const router = require('./routes');
@@ -17,13 +14,12 @@ mongoose.set('strictQuery', false);
 
 const errorHandler = require('./middlewares/errorHandler');
 
-// const { login, createUser } = require('./controllers/users');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const { MONGO_DB = 'mongodb://127.0.0.1:27017/newsexplorer', PORT } = require('./constants/config');
 
 mongoose.connect(MONGO_DB);
-mongoose.set('strictQuery', false);
 
+app.use(requestLogger);
 app.use(helmet());
 app.use(limiter);
 
@@ -31,7 +27,6 @@ app.use(cors());
 app.options('*', cors());
 
 app.use(express.json());
-app.use(requestLogger);
 
 app.use(router);
 

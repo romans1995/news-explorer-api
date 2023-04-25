@@ -5,8 +5,7 @@ const NotFoundError = require('../errors/NotFoundError');
 const ERROR_CODE = require('../errors/ERROR_CODE');
 const ConflictError = require('../errors/ConflictError');
 const SERVER_ERROR = require('../errors/SERVER_ERROR');
-
-const { JWT_TOKEN = 'dev-key' } = process.env;
+const { JWT_TOKEN } = require('../constants/config');
 
 module.exports.getUserData = (req, res, next) => {
   User.findById(req.user._id)

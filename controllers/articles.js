@@ -25,7 +25,7 @@ module.exports.createArticle = async (req, res, next) => {
     res.send(newArticle);
   } catch (err) {
     if (err.name === 'ValidationError') {
-      next(new ForbiddenError('Invalid Article id'));
+      next(new ERROR_CODE('Invalid Article id'));
     } else if (err.statusCode === NotFoundError) {
       next(new NotFoundError(' bad request'));
     } else {
