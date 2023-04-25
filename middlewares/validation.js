@@ -62,12 +62,12 @@ const validateObjectId = celebrate({
 // validate name and link for article that have text and image via link
 const validateArticle = celebrate({
   body: Joi.object({
-    title: Joi.string().required().message('Title is invalid'),
-    keyword: Joi.string().required().message('Keyword is invalid'),
-    text: Joi.string().required().message('Text is invalid'),
-    date: Joi.string().required().message('date is invalid'),
-    source: Joi.string().required().message('Source is invalid'),
-    image: Joi.string().custom(validateUrl).message('Invalid URL for article image link'),
+    title: Joi.string().required().message({ 'string.required': 'Title is invalid' }),
+    keyword: Joi.string().required().message({ 'string.required': 'Keyword is invalid' }),
+    text: Joi.string().required().message({ 'string.required': 'Text is invalid' }),
+    date: Joi.string().required().message({ 'string.required': 'date is invalid' }),
+    source: Joi.string().required().message({ 'string.required': 'Source is invalid' }),
+    image: Joi.string().custom(validateUrl).message({ 'string.required': 'Invalid URL for article image link' }),
     link: Joi.string().required().custom(validateUrl).messages({
       'string.empty': 'Link is required',
       'string.uri': 'Invalid URL for card link',
