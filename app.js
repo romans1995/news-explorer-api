@@ -1,37 +1,36 @@
-const { PORT = 3000 } = process.env;
+require('dotenv').config({ path: './.env' });
 const express = require('express');
 const mongoose = require('mongoose');
+const helmet = require('helmet');
 const cors = require('cors');
+const { errors } = require('celebrate');
+
+const { limiter } = require('./constants/limiter');
+
+const router = require('./routes');
+
 const app = express();
 mongoose.set('strictQuery', false);
-const auth = require('./middlewares/auth');
-const { login, createUser } = require('./controllers/users');
+
+const errorHandler = require('./middlewares/errorHandler');
+
 const { requestLogger, errorLogger } = require('./middlewares/logger');
-const NotFoundError = require('./errors/NotFoundError');
+const { MONGO_DB = 'mongodb://127.0.0.1:27017/newsexplorer', PORT } = require('./constants/config');
 
-mongoose.connect('mongodb://127.0.0.1:27017/newsexplorer');
-mongoose.set('strictQuery', false);
+mongoose.connect(MONGO_DB);
 
-const userRoutes = require('./routes/users');
-const articleRoutes = require('./routes/articles');
+app.use(requestLogger);
+app.use(helmet());
+app.use(limiter);
 
 app.use(cors());
 app.options('*', cors());
 
 app.use(express.json());
-app.use(requestLogger);
 
+app.use(router);
 
-app.post('/signin', login);
-app.post('/signup', createUser);
-
-app.use('/users', auth, userRoutes);
-app.use('/articles', auth, articleRoutes);
-
-app.use((req, res, next) => {
-    next(new NotFoundError('The requested resource was not found'));
-});
 app.use(errorLogger);
-app.listen(PORT, () => {
-    console.log('Server listening on port 3000');
-});
+app.use(errors());
+app.use(errorHandler);
+app.listen(3000 || PORT);
